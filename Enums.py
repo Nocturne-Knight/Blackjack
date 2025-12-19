@@ -7,16 +7,16 @@ class Suits(Enum):
     CLUB = "♣"
 
 class Char(Enum):
-    ACE = 1
-    TWO = 2
-    THREE = 3
-    FOUR = 4
-    FIVE = 5
-    SIX = 6
-    SEVEN = 7
-    EIGHT = 8
-    NINE = 9
-    TEN = 10
-    JACK = 11
-    QUEEN = 12
-    KING = 13
+    ACE = ("ACE",1)
+    TWO = ("TWO",2)
+    THREE = ("THREE", 3)
+    FOUR = ("FOUR", 4)
+    FIVE = ("FIVE", 5)
+    SIX = ("SIX", 6)
+    SEVEN = ("SEVEN", 7)
+    EIGHT = ("EIGHT", 8)
+    NINE = ("NINE", 9)
+    TEN = ("TEN", 10)
+    JACK = ("JACK", 10)
+    QUEEN = ("QUEEN", 10)
+    KING = ("KING", 10)
