@@ -3,8 +3,16 @@ import Enums
 import random
 
 def drewAce():
+    '''
+    This function triggers when an ace is drawn. 
+    Outputs either 1 or 11 depending on player's input: the string 1 or 11.
+    If in the event something other than 1 or 11 is the input, 
+    the function will ask for 1 or 11 again.
+
+    Output: The integer 1 or 11.
+    '''
     while True:
-        ace_val = int(input("You drew an Ace. Choose 1 or 11: "))
+        ace_val = input("You drew an Ace. Choose 1 or 11: ")
         if ace_val == "1":
             return 1
         elif ace_val == "11":
@@ -14,6 +22,14 @@ def drewAce():
 
 
 def addToHand(card, hand, total):
+    '''
+    Adds cards to the player's hand
+    
+    :param card: Card object that will be added to hand.
+    :param hand: The player's hand list that holds their cards.
+    :param total: The combined integer points of the player's cards.
+    Output total: The combined integer points of the player's cards.
+    '''
     card.reveal()
     hand.append(card)
 
@@ -28,6 +44,14 @@ def addToHand(card, hand, total):
 
 
 def addToDealer(card, hand, total):
+    '''
+    Adds cards to the dealer's hand
+    
+    :param card: Card object that will be added to hand.
+    :param hand: The dealer's hand list that holds their cards.
+    :param total: The combined integer points of the dealer's cards.
+    Output total: The combined integer points of the dealer's cards.
+    '''
     hand.append(card)
 
     value = card.get_value()
@@ -41,23 +65,43 @@ def addToDealer(card, hand, total):
 
 
 def revealCards(cards):
+    '''
+    Docstring for revealCards
+    
+    :param cards: The list of cards that need to be printed.
+    '''
     for card in cards:
         print(card)
 
 
 def determineWinner(player, dealer):
-    if player > 21:
-        return "You lose!"
-    if dealer > 21:
+    '''
+    Docstring for determineWinner
+    
+    :param player: The player's total points as an integer.
+    :param dealer: The dealer's total points as an integer.
+    Output: String that says who wins and who loses or if it's a tie.
+    '''
+    if player > 21 and dealer > 21:
+        return "Tie"
+    elif dealer > 21:
         return "You win!"
-    if player > dealer:
-        return "You win!"
-    if dealer > player:
+    elif player > 21:
         return "You lose!"
-    return "Tie"
+    elif player > dealer:
+        return "You win!"
+    elif dealer > player:
+        return "You lose!"
+    else:
+        return "Tie"
 
 
 def buildDeck():
+    '''
+    Builds the deck that loops through the suits 
+    and character enums and then shuffles them randomly.
+    Output deck: the list of the shuffled cards.
+    '''
     deck = []
     for suit in Enums.Suits:
         for char in Enums.Char:
@@ -67,12 +111,23 @@ def buildDeck():
 
 
 def dealerTurn(deck, dealerHand, dealerTotal):
+    '''
+    Function that deals with the dealer's turn. 
+    
+    :param deck: The deck list.
+    :param dealerHand: The dealer's hand list.
+    :param dealerTotal: The integer of the dealer's total points.
+    Output dealerTotal: The integer of the dealer's total points.
+    '''
     while dealerTotal < 17:
         dealerTotal = addToDealer(deck.pop(), dealerHand, dealerTotal)
     return dealerTotal
 
 
 def main():
+    '''
+    Main game loop.
+    '''
     try:
         while True:
             deck = buildDeck()
@@ -117,15 +172,22 @@ def main():
 
             dealerTotal = dealerTurn(deck, dealerHand, dealerTotal)
 
-            print("Final hands:")
-            print("Your hand:")
+            print("Your final hand:")
             revealCards(playerHand)
             print("Total:", playerTotal)
-            print("Dealer hand:")
+            print("Dealer's final hand:")
             revealCards(dealerHand)
             print("Total:", dealerTotal)
 
-            print("Result:", determineWinner(playerTotal, dealerTotal))
+            if playerTotal > 21 and dealerTotal > 21:
+                print("Both of you have busted!")
+            elif dealerTotal > 21:
+                print("Dealer has busted!")
+            elif playerTotal > 21:
+                print("You busted!")
+            else:
+                pass
+            print(determineWinner(playerTotal, dealerTotal))
             print("New Round")
 
     except KeyboardInterrupt:
