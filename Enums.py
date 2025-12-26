@@ -1,12 +1,19 @@
 from enum import Enum
 
 class Suits(Enum):
+    '''
+    Enum values for the 4 suits of cards that will be used to create the card deck.
+    '''
     HEART = "♡"
     DIAMOND = "♢"
     SPADE = "♠"
     CLUB = "♣"
 
 class Char(Enum):
+    '''
+    Enum values for the ranks of each card. 
+    Both the rank and the rank's value is stored in a tuple. 
+    '''
     ACE = ("ACE",1)
     TWO = ("TWO",2)
     THREE = ("THREE", 3)
