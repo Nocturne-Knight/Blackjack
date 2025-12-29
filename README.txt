@@ -1,9 +1,8 @@
 Welcome to Blackjack!
-Please note the game is not yet finished due to too many issues.
 
 Rules:
-Try to get the combined values of the cards in your hands as close to 21 as possible. Be careful: if you go over 21, you bust and you lose.
-Choose to stay or hit. If you stay, you are happy with the cards in your hands. If you hit, you draw a card from the deck.
+Try to get the combined values of the cards in your hands as close to 21 as possible while going above the dealer's points. Be careful: if you go over 21, you bust and you lose.
+Choose to stay or hit. If you stay, you are happy with the cards in your hands. If you hit, you draw a card from the deck. The dealer is your opponent who will continue to draw cards until their points is at least 17.
 Cards:
 Ace=1 or 11, your choice.
 Two=2
