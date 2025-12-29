@@ -135,6 +135,9 @@ def main():
             dealerHand = []
             playerTotal = 0
             dealerTotal = 0
+            playerCash = 200
+            dealerCash = 200
+            bet = None
 
             playerTotal = addToHand(deck.pop(), playerHand, playerTotal)
             playerTotal = addToHand(deck.pop(), playerHand, playerTotal)
@@ -143,7 +146,19 @@ def main():
             dealerTotal = addToDealer(deck.pop(), dealerHand, dealerTotal)
 
             dealerHand[0].reveal() 
-
+            
+            while type(bet)!=int:
+                try:
+                    bet=int(input("Enter the amount of money you want to bet (input a positive integer): "))
+                    while bet <= 0 or bet > min(playerCash, dealerCash): 
+                        print("Error: The input must be positive and below both you and dealer's current cash")
+                        bet=None
+                        bet=int(input("Enter the amount of money you want to bet: "))
+                except ValueError:
+                    print("Error: Only positive integers are accepted as an input")
+                    bet=None
+            playerCash -= bet
+            dealerCash -= bet
             while True:
                 print("Your hand:")
                 revealCards(playerHand)
@@ -181,10 +196,14 @@ def main():
 
             if playerTotal > 21 and dealerTotal > 21:
                 print("Both of you have busted!")
+                playerCash += bet
+                dealerCash += bet
             elif dealerTotal > 21:
                 print("Dealer has busted!")
+                playerCash += bet*2
             elif playerTotal > 21:
                 print("You busted!")
+                dealerCash
             else:
                 pass
             print(determineWinner(playerTotal, dealerTotal))
