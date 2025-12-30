@@ -171,7 +171,7 @@ def main():
                     break
 
                 decision = input("Hit, stay, or quit? ").lower()
-
+  
                 if decision == "hit":
                     playerTotal = addToHand(deck.pop(), playerHand, playerTotal)
                 elif decision == "stay":
@@ -196,19 +196,26 @@ def main():
 
             if playerTotal > 21 and dealerTotal > 21:
                 print("Both of you have busted!")
-                playerCash += bet
-                dealerCash += bet
             elif dealerTotal > 21:
                 print("Dealer has busted!")
-                playerCash += bet*2
             elif playerTotal > 21:
                 print("You busted!")
-                dealerCash
             else:
                 pass
-            print(determineWinner(playerTotal, dealerTotal))
-            print("New Round")
-
+            outcome=determineWinner(playerTotal, dealerTotal)
+            print(outcome)
+            if outcome == "Tie":
+                playerCash += bet
+                dealerCash += bet
+            elif outcome == "You win!":
+                playerCash += bet * 2
+            else:
+                dealerCash += bet * 2
+            if playerCash <= 0 or dealerCash <= 0:
+                print("That's it. One of you have ran out of money!")
+                print("Do you wish to reset?")
+            else:
+                print("New Round")
     except KeyboardInterrupt:
         print("Exiting program.")
         exit()
