@@ -35,8 +35,10 @@ def addToHand(card, hand, total):
 
     value = card.get_value()
 
-    if value == 1: 
+    if value == 1 and total < 11: 
         total += drewAce()
+    elif value == 1 and total >= 11: 
+        total += 1
     else:
         total += value
 
@@ -129,14 +131,14 @@ def main():
     Main game loop.
     '''
     try:
+        playerCash = 200
+        dealerCash = 200
         while True:
             deck = buildDeck()
             playerHand = []
             dealerHand = []
             playerTotal = 0
             dealerTotal = 0
-            playerCash = 200
-            dealerCash = 200
             bet = None
 
             playerTotal = addToHand(deck.pop(), playerHand, playerTotal)
@@ -212,8 +214,14 @@ def main():
             else:
                 dealerCash += bet * 2
             if playerCash <= 0 or dealerCash <= 0:
-                print("That's it. One of you have ran out of money!")
-                print("Do you wish to reset?")
+                print("That's it. One of you has run out of money!")
+                choice = input("Do you wish to reset? (y/n): ").lower()
+                if choice != "y":
+                    break
+                else:
+                    playerCash = 200
+                    dealerCash = 200
+                    print("Game reset!")
             else:
                 print("New Round")
     except KeyboardInterrupt:
